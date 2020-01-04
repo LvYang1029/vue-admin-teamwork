@@ -52,7 +52,7 @@
 </template>
 <script>
 import request from '@/utils/request'
-import querystring from 'querystring'
+import querystring,{ stringify } from 'querystring'
 export default {
   
     //methods用于存放网页中需要调用的方法
@@ -61,7 +61,7 @@ export default {
       let url = "http://localhost:6677/product/saveOrUpdate"
       request({
         url,
-        method:"POST",
+        method:"post",
         headers:{
           "Content-Type":"application/x-www-form-urlencoded"
         },
@@ -80,8 +80,8 @@ export default {
       loadData(){
         let url = "http://localhost:6677/product/findAll"
       request.get(url).then((response)=>{
-        //将查询结果设置到customer中,this指向外部函数的this
-        this.conducts = response.data;
+        //将查询结果设置到product中,this指向外部函数的this
+        this.products = response.data;
       })
       },
       toDeleteHandler(id){
@@ -116,18 +116,18 @@ export default {
         closeModulHandler(){
         this.visible = false;
         },
-    toAddHandler(){
-      this.visible = true;
-    }
+        toAddHandler(){
+        this.visible = true;
+        }
 
     },
     //data（）用于存放要向网页中显示的数据
     data(){
         return{
-            visible:false,
-       products:[],
-       form:{
-         type : "product"
+        visible:false,
+        products:[],
+        form:{
+        type : "product"
        }
         }
     },

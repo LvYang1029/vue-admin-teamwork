@@ -21,13 +21,39 @@
     </el-table>
 
     <el-dialog
+  title="录入员工信息"
   :visible.sync="visible"
   width="60%">
-  测试：{{form}}
   <el-form label-width="80px" :model="form">
-      
+      <el-form-item label="用户名">
+      <el-input v-model="form.username"></el-input>
+    </el-form-item>
+
+    <el-form-item label="密码">
+      <el-input type="password" v-model="form.password"></el-input>
+    </el-form-item>
+
+    <el-form-item label="真实姓名">
+      <el-input v-model="form.realname"></el-input>
+    </el-form-item>
+
+    <el-form-item label="性别">
+      <el-radio-group v-model="form.gender">
+    <el-radio :label="3">男</el-radio>
+    <el-radio :label="6">女</el-radio>
+  </el-radio-group>
+    </el-form-item>
+
+    <el-form-item label="手机号">
+      <el-input v-model="form.telephone"></el-input>
+    </el-form-item>
+
+    <el-form-item label="身份证号">
+      <el-input v-model="form.idCard"></el-input>
+    </el-form-item>
+
+
   </el-form>
-  <span>这是一段信息</span>
   <span slot="footer" class="dialog-footer">
     <el-button @click="closeModulHandler" size="small">取 消</el-button>
     <el-button type="primary" @click="submitHandler" size="small">确 定</el-button>
@@ -117,7 +143,6 @@ export default {
           this.visible = true;
         },
         toAddHandler(){
-            this.title = "录入员工信息";
             this.visible = true;
         },
         closeModulHandler(){
