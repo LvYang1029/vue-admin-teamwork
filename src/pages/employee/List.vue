@@ -25,14 +25,7 @@
   width="60%">
   测试：{{form}}
   <el-form label-width="80px" :model="form">
-      <el-form-item label="名称">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="价格">
-                    <el-input v-model="form.price"></el-input>
-                <el-form-item label="介绍">
-                    <el-input type="textarea" v-model="form.description"></el-input>
-                </el-form-item>
+      
   </el-form>
   <span>这是一段信息</span>
   <span slot="footer" class="dialog-footer">
