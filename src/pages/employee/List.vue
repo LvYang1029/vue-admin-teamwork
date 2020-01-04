@@ -21,7 +21,6 @@
     </el-table>
 
     <el-dialog
-  title="录入员工信息"
   :visible.sync="visible"
   width="60%">
   测试：{{form}}
@@ -84,7 +83,7 @@ export default {
       this.loadData();
       },
     methods:{
-        submitHandler(){
+      submitHandler(){
       let url = "http://localhost:6677/waiter/saveOrUpdate"
       request({
         url,
