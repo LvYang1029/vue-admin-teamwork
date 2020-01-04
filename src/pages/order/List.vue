@@ -55,6 +55,9 @@
 import request from '@/utils/request'
 import querystring from 'querystring'
 export default {
+    created(){
+        this.loadData();
+    },
     methods:{
         loadData(){
         let url = "http://localhost:6677/order/findAll";
@@ -121,9 +124,7 @@ export default {
             }
         };
     },
-    created(){
-        this.loadData();
-    }
+    
 }
 </script>
 <style scoped>
