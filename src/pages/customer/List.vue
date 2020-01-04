@@ -47,8 +47,14 @@
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button size="small" @click="closeModalHandler">取 消</el-button>
-        <el-button size="small" type="primary" @click="submitHandler">确 定</el-button>
+
+        <el-button size="small" @click="closeModalHandler">
+            <i class="el-icon-close"></i> </el-button>
+
+        <el-button size="small" type="primary" @click="submitHandler">
+            <i class="el-icon-check"></i>
+            
+        </el-button>
       </span>
     </el-dialog>
     <!-- /模态框 -->
