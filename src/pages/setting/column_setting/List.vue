@@ -3,12 +3,11 @@
         <el-button type="warning" size="small" @click="toAddHandler">添加</el-button>
         <el-button type="danger" size="small">批量删除</el-button>
         
-        <el-table :data="product">
+        <el-table :data="category">
             <el-table-column label="编号" prop="id"></el-table-column>
-            <el-table-column label="产品名称" prop="name"></el-table-column>
-            <el-table-column label="价格" prop="price"></el-table-column>
-            <el-table-column label="描述" prop="description"></el-table-column>
-            <el-table-column label="所属产品" prop="categoryId"></el-table-column>
+            <el-table-column label="栏目名称" prop="name"></el-table-column>
+            <el-table-column label="序号" prop="num"></el-table-column>
+            <el-table-column label="父栏目" prop="parentId"></el-table-column>
             <el-table-column label="操作">
                 <template v-slot="slot">
                     <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>&nbsp;&nbsp;
@@ -31,18 +30,11 @@
             width="60%">
             ---{{form}}
             <el-form :model="form" label-width="80px">
-                <el-form-item label="名称">
+                <el-form-item label="栏目名称">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="价格">
-                    <el-input v-model="form.price"></el-input>
-                </el-form-item>
-                <el-form-item label="所属栏目">
-                     <el-select v-model="form.status" placeholder="请选择">
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="介绍">
-                    <el-input type="textarea" v-model="form.description"></el-input>
+                <el-form-item label="序号">
+                    <el-input v-model="form.num"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -58,17 +50,17 @@ import querystring from 'querystring'
 export default {
     methods:{
         loadData(){
-        let url = "http://localhost:6677/product/findAll";
+        let url = "http://localhost:6677/category/findAll";
         request.get(url).then((response)=>{
-            this.product = response.data;
+            this.category = response.data;
         });
         },
         toAddHandler(){
             this.visible = true;
-            this.title = "添加产品信息";
+            this.title = "添加栏目信息";
         },
         closeHandlerwithYES(){
-            let url = "http://localhost:6677/product/saveOrUpdate"
+            let url = "http://localhost:6677/category/saveOrUpdate"
             request({
                 url,
                 method:"POST",
@@ -93,15 +85,15 @@ export default {
         toUpdateHandler(row){
             this.form = row;
             this.visible = true;
-            this.title = "修改产品信息";
+            this.title = "修改栏目信息";
         },
-        toDeleteHandler(id){
+        toDeleteHandler(){
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    let url = "http://localhost:6677/category/deleteById?id="+id;
+                    let url = "http://localhost:6677/category/deleteById?id="+id
                     request.get(url).then((response)=>{
                         this.loadData();
                             this.$message({
@@ -116,9 +108,9 @@ export default {
         return {
             title:"添加栏目信息",
             visible:false,
-            product:[],
+            category:[],
             form:{
-                type:"product",
+                type:"category",
             }
         };
     },
