@@ -22,9 +22,6 @@
   :visible.sync="visible"
   width="60%">
   <el-form :model="form" label-width="80px">
-    <el-form-item label="编号">
-      <el-input v-model="form.id"></el-input>
-    </el-form-item>
 
     <el-form-item label="产品名称">
       <el-input v-model="form.name"></el-input>
@@ -36,10 +33,6 @@
 
     <el-form-item label="描述">
       <el-input v-model="form.description"></el-input>
-    </el-form-item>
-
-    <el-form-item label="所属产品">
-      <el-input v-model="form.categoryId"></el-input>
     </el-form-item>
 
   </el-form>
