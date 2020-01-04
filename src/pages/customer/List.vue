@@ -18,6 +18,7 @@
           <a href="" @click.prevent="toUpdateHandler(slot.row)">
               <i class="el-icon-edit-outline"></i>
           </a>
+          <a href="" @click.prevent="toDetailsHandler(record.row)">详情</a>
         </template>
       </el-table-column>
     </el-table>
@@ -67,6 +68,14 @@ import querystring from 'querystring'
 export default {
   // 用于存放网页中需要调用的方法
   methods:{
+     toDetailsHandler(customer){
+      //跳转到详情页面
+      // this.$router.push("/customerDetails")
+      this.$router.push({
+        path:"/customerDetails",
+        query:{id:customer.id}
+      })
+    },
     loadData(){
       let url = "http://localhost:6677/customer/findAll"
       request.get(url).then((response)=>{
