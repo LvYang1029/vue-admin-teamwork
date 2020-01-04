@@ -25,34 +25,14 @@
   width="60%">
   测试：{{form}}
   <el-form label-width="80px" :model="form">
-      <el-form-item label="用户名">
-      <el-input v-model="form.username"></el-input>
-    </el-form-item>
-
-    <el-form-item label="密码">
-      <el-input type="password" v-model="form.password"></el-input>
-    </el-form-item>
-
-    <el-form-item label="真实姓名">
-      <el-input v-model="form.realname"></el-input>
-    </el-form-item>
-
-    <el-form-item label="性别">
-      <el-radio-group v-model="form.gender">
-    <el-radio :label="3">男</el-radio>
-    <el-radio :label="6">女</el-radio>
-  </el-radio-group>
-    </el-form-item>
-
-    <el-form-item label="手机号">
-      <el-input v-model="form.telephone"></el-input>
-    </el-form-item>
-
-    <el-form-item label="身份证号">
-      <el-input v-model="form.idCard"></el-input>
-    </el-form-item>
-
-
+      <el-form-item label="名称">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="价格">
+                    <el-input v-model="form.price"></el-input>
+                <el-form-item label="介绍">
+                    <el-input type="textarea" v-model="form.description"></el-input>
+                </el-form-item>
   </el-form>
   <span>这是一段信息</span>
   <span slot="footer" class="dialog-footer">
