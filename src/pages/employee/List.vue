@@ -21,7 +21,7 @@
     </el-table>
 
     <el-dialog
-  :title="title"
+  title="title"
   :visible.sync="visible"
   width="60%">
   测试：{{form}}
@@ -84,7 +84,7 @@ export default {
       this.loadData();
       },
     methods:{
-        submitHandler(){
+      submitHandler(){
       let url = "http://localhost:6677/waiter/saveOrUpdate"
       request({
         url,
