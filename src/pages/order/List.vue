@@ -1,131 +1,156 @@
 <template>
     <div>
-        <el-button type="warning" size="small" @click="toAddHandler">添加</el-button>
-        <el-button type="danger" size="small">批量删除</el-button>
-        
-        <el-table :data="order">
-            <el-table-column label="编号" prop="id"></el-table-column>
-            <el-table-column label="产品名称" prop="name"></el-table-column>
-            <el-table-column label="价格" prop="price"></el-table-column>
-            <el-table-column label="描述" prop="description"></el-table-column>
-            <el-table-column label="所属产品" prop="categoryId"></el-table-column>
-            <el-table-column label="操作">
-                <template v-slot="slot">
-                    <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>&nbsp;&nbsp;
-                    <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a>
-                </template>
-            </el-table-column>
-        </el-table>
+    <el-button size="small" type="success" @click="toAddHandler">添加</el-button>
+    <el-button type="danger" size="small">删除</el-button>
 
-        <!-- 分页 -->
-        <br/><br/><center>
-        <el-pagination 
-            background 
-            layout="prev, pager, next" 
-            :total="1000">
-        </el-pagination></center>
-        <!-- 对话框 -->
-        <el-dialog
-            :title="title"
-            :visible.sync="visible"
-            width="60%">
-            ---{{form}}
-            <el-form :model="form" label-width="80px">
-                <el-form-item label="名称">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="价格">
-                    <el-input v-model="form.price"></el-input>
-                </el-form-item>
-                <el-form-item label="所属栏目">
-                    <!-- <el-input v-model="form.price"></el-input> -->
-                </el-form-item>
-                <el-form-item label="介绍">
-                    <el-input type="textarea" v-model="form.description"></el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button size="small" type="primary" @click="closeHandlerwithYES">确 定</el-button>
-                <el-button @click="closeHandlerwithNO" size="small">取 消</el-button>
-            </span>
-        </el-dialog>
+    <el-table :data="order">
+        <el-table-column prop = "id" label="编号"></el-table-column>
+        <el-table-column prop = "orderTime" label="订单时间"></el-table-column>
+        <el-table-column prop = "total" label="价格"></el-table-column>
+        <el-table-column prop = "status" label="状态"></el-table-column>
+        <el-table-column prop = "customerId" label="顾客ID"></el-table-column>
+        <el-table-column prop = "waiterId" label="员工ID"></el-table-column>
+        <el-table-column prop = "addressId" label="地址ID"></el-table-column>
+        <el-table-column label="操作">
+
+            <template v-slot="slot">
+                <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>
+                <a href="" @click.prevent="toUpdataHandler(slot.row)">修改</a>
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <el-dialog
+  title="添加订单信息信息"
+  :visible.sync="visible"
+  width="60%">
+  测试：{{form}}
+  <el-form label-width="80px" :model="form">
+      <el-form-item label="用户名">
+      <el-input v-model="form.username"></el-input>
+    </el-form-item>
+
+    <el-form-item label="密码">
+      <el-input type="password" v-model="form.password"></el-input>
+    </el-form-item>
+
+    <el-form-item label="真实姓名">
+      <el-input v-model="form.realname"></el-input>
+    </el-form-item>
+
+    <el-form-item label="性别">
+      <el-radio-group v-model="form.gender">
+    <el-radio :label="3">男</el-radio>
+    <el-radio :label="6">女</el-radio>
+  </el-radio-group>
+    </el-form-item>
+
+    <el-form-item label="手机号">
+      <el-input v-model="form.telephone"></el-input>
+    </el-form-item>
+
+    <el-form-item label="身份证号">
+      <el-input v-model="form.idCard"></el-input>
+    </el-form-item>
+
+
+  </el-form>
+
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="closeModulHandler" size="small">取 消</el-button>
+    <el-button type="primary" @click="submitHandler" size="small">确 定</el-button>
+  </span>
+</el-dialog>
+
+    
     </div>
 </template>
 <script>
 import request from '@/utils/request'
-import querystring from 'querystring'
+import querystring, { stringify } from 'querystring'
 export default {
-    created(){
-        this.loadData();
-    },
-    methods:{
-        loadData(){
-        let url = "http://localhost:6677/order/findAll";
-        request.get(url).then((response)=>{
-            this.product = response.data;
-        });
-        },
-        toAddHandler(){
-            this.visible = true;
-            this.title = "添加产品信息";
-        },
-        closeHandlerwithYES(){
-            let url = "http://localhost:6677/order/saveOrUpdate"
-            request({
-                url,
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/x-www-form-urlencoded"
-                },
-                data:querystring.stringify(this.form)
-            }).then((response) => {
-                //this.visible = false;
-                //刷新
-                this.loadData();
-                this.closeHandlerwithNO();
-                this.$message({
-                    type:"success",
-                    message:response.message
-                })
-            })
-        },
-        closeHandlerwithNO(){
-            this.visible = false;
-        },
-        toUpdateHandler(row){
-            this.form = row;
-            this.visible = true;
-            this.title = "修改产品信息";
-        },
-        toDeleteHandler(){
-                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    let url = "http://localhost:6677/order/deleteById?id="+id
-                    request.get(url).then((response)=>{
-                        this.loadData();
-                            this.$message({
-                            type: 'success',
-                            message: response.message,
-                        });
-                    })
-                });
-        }
-    },
     data(){
-        return {
-            title:"添加栏目信息",
+        return{
             visible:false,
             order:[],
             form:{
-                type:"order",
-            }
-        };
+             type : "order"
+       }
+        }
     },
+        created(){
+      //this为当前vue实例
+      //vue实例创建完毕
+      this.loadData();
+      },
+    methods:{
+        submitHandler(){
+      let url = "http://localhost:6677/order/save"
+      request({
+        url,
+        method:"POST",
+        headers:{
+          "Content-Type":"application/x-www-form-urlencoded"
+        },
+        data:querystring.stringify(this.form)
+      }).then((response)=>{
+        //模态框关闭，
+        this.closeModulHandler();
+        this.loadData();
+        //提示消息
+        this.$message({
+          type:"success",
+          message:response.message
+        })
+      })
+  },
+        //重载员工数据
+        loadData(){
+            // this 指向vue实例，通过vue来访问该实例中的数据
+            let url = "http://localhost:6677/order/findAll";
+            request.get(url).then((response)=>{
+        //箭头函数中的this指向外部函数中的this
+        this.order = response.data;
+      })
+        },
+        
+        toDeleteHandler(id){
+         //先确认
+         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          //调用后台接口，完成删除操作
+          let url = "http://localhost:6677/order/deleteById?id="+id;
+          request.get(url).then((response)=>{
+            //刷新数据
+            this.loadData();
+            //提示效果
+            this.$message({
+              type:'success',
+              message:response.message
+            });
+
+          })
+        })
+        },
+        toUpdataHandler(row){
+          //在模态框的表单中显示本行的信息
+          this.form = row;
+          this.visible = true;
+        },
+        toAddHandler(){
+            this.title = "录入订单信息";
+            this.visible = true;
+        },
+        closeModulHandler(){
+            this.visible = false;
+        },
+    }
     
 }
 </script>
 <style scoped>
+
 </style>

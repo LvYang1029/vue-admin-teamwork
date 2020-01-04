@@ -21,7 +21,7 @@
     </el-table>
 
     <el-dialog
-  :title="title"
+  title="录入员工信息"
   :visible.sync="visible"
   width="60%">
   测试：{{form}}
