@@ -118,6 +118,30 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/address',
+    component: Layout,
+    children: [
+      {
+        path: 'List',
+        name: 'address_List',
+        component: () => import('@/pages/address/List'),
+        meta: { title: '地址管理', icon: 'nested' }
+      }
+    ]
+  },
+  {
+    path: '/comment',
+    component: Layout,
+    children: [
+      {
+        path: 'List',
+        name: 'comment_List',
+        component: () => import('@/pages/comment/List'),
+        meta: { title: '评论管理', icon: 'nested' }
+      }
+    ]
+  },
 
   // {
   //   path: '/nested',
