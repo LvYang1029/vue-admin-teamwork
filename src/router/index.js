@@ -55,49 +55,66 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
+  {
+    path: '/customer',
+    component: Layout,
+    children: [
+      {
+        path: 'List',
+        name: 'customer_List',
+        component: () => import('@/pages/customer/List'),
+        meta: { title: '顾客管理', icon: 'user' }
+      }
+    ]
+  },
 
   {
-    path: '顾客管理',
+    path: '/employee',
     component: Layout,
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'List',
+        name: 'employee_List',
+        component: () => import('@/pages/employee/List'),
+        meta: { title: '员工管理', icon: 'tree' }
       }
     ]
   },
   {
-    path: '员工管理',
+    path: '/order',
     component: Layout,
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'List',
+        name: 'order_List',
+        component: () => import('@/pages/order/List'),
+        meta: { title: '订单管理', icon: 'tree' }
       }
     ]
   },
   {
-    path: '系统配置',
+    path: '/setting',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    redirect: '/pages/setting',
+    name: 'setting',
+    meta: {
+      title: '系统配置',
+      icon: 'example'
+    },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'column_setting',
+        component: () => import('@/pages/setting/column_setting/List'), // Parent router-view
+        name: 'setting1',
+        meta: { title: '栏目管理' },
+        children: []
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'product_setting',
+        name:'setting2',
+        component: () => import('@/pages/setting/product_setting/List'),
+        meta: { title: '产品管理' },
+        children: []
       }
     ]
   },
