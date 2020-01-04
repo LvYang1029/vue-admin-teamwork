@@ -76,7 +76,7 @@ export const constantRoutes = [
         path: 'List',
         name: 'employee_List',
         component: () => import('@/pages/employee/List'),
-        meta: { title: '员工管理', icon: 'tree' }
+        meta: { title: '员工管理', icon: 'user' }
       }
     ]
   },
