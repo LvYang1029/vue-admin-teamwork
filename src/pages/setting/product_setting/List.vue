@@ -72,7 +72,7 @@ export default {
   
     //methods用于存放网页中需要调用的方法
     methods:{
-      loadCatrgory(){
+      loadCategory(){
         let url = "http://localhost:6677/category/findAll";
         request.get(url).then((response)=>{
             this.options = response.data;
@@ -155,16 +155,14 @@ export default {
         visible:false,
         products:[],
         options:[],
-        form:{
-        type : "product"
-       }
+        form:{}
         }
     },
     created(){
       //this为当前vue实例
       //vue实例创建完毕
       this.loadData();
-      this.loadCatrgory();
+      this.loadCategory();
       }
     }
 </script>

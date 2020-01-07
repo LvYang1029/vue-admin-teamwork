@@ -40,7 +40,12 @@
                     <el-input v-model="form.price"></el-input>
                 </el-form-item>
                 <el-form-item label="所属栏目">
-                    <!-- <el-input v-model="form.price"></el-input> -->
+                    <el-select v-model="form.categoryId" placeholder="请选择">
+                         <el-option v-for="item in options"
+                         :key="item.id"
+                         :label="item.name"
+                         :value="item.id"></el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="介绍">
                     <el-input type="textarea" v-model="form.description"></el-input>
@@ -58,6 +63,12 @@ import request from '@/utils/request'
 import querystring from 'querystring'
 export default {
     methods:{
+        loadCategory(){
+        let url = "http://localhost:6677/category/findAll";
+        request.get(url).then((response)=>{
+            this.options = response.data;
+        });
+        },
         pageChageHandler(page){
             //将当前页改为插件中的当前页
             this.params.page = page-1;
@@ -131,6 +142,7 @@ export default {
             title:"添加栏目信息",
             visible:false,
             order:{},
+            options:[],
             form:{
                 type:"order",
             },
@@ -142,6 +154,7 @@ export default {
     },
     created(){
         this.loadData();
+        this.loadCategory();
     }
 }
 </script>
